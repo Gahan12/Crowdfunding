@@ -25,7 +25,6 @@ function Details() {
 
   const user = location.state?.user;
 
-
   //function to handle pledge submitted and update the rewardsData array
 
   const handlePledgeSubmitted = (ids, input) => {
@@ -131,8 +130,7 @@ function Details() {
                   <h3 className="heading">{user.title}</h3>
 
                   <p className="paragraph">
-                    A beautiful & handcrafted monitor stand to reduce neck and
-                    eye strain.
+                    {user.description}
                   </p>
 
                   <div className="buttons">
@@ -180,7 +178,7 @@ function Details() {
                   <div className="bottom-line"></div>
                 </div>
                 <div className="datacard-heading-paragraphh">
-                  <h3 className="heading">{daysLeft}</h3>
+                  <h3 className="heading">{user.date}</h3>
                   <p className="paragraph">days left</p>
                   <div className="bottom-line"></div>
                 </div>

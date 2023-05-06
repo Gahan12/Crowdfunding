@@ -14,7 +14,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/Minor_p_data', {
 
 const userSchema = new mongoose.Schema({
     title: String,
+    description: String,
     story: String,
+    address: String,
     eth: String,
     date: Date,
     image: String
@@ -34,6 +36,8 @@ app.post('/', async(req, res) => {
     user.eth = req.body.eth;
     user.date = req.body.date;
     user.image = req.body.image;
+    user.description = req.body.description;
+    user.address = req.body.address;
     const doc = await user.save();
 
     console.log(doc);

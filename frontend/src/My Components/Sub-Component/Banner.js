@@ -1,5 +1,4 @@
 import React from "react";
-import Nav from "./Nav";
 import img from "./images/banner.jpg";
 
 function Banner({ openMobileMenu, setOpenMobileMenu, openMenu }) {
@@ -8,11 +7,6 @@ function Banner({ openMobileMenu, setOpenMobileMenu, openMenu }) {
       <div className="bg-image">
         <img src={img} alt="" />
       </div>
-      <Nav
-        openMobileMenu={openMobileMenu}
-        setOpenMobileMenu={setOpenMobileMenu}
-        openMenu={openMenu}
-      />
     </div>
   );
 }

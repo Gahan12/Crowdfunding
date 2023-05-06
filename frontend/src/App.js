@@ -10,16 +10,15 @@ import React, { useEffect, useState } from 'react';
 function App() {
 
   const [users, setUsers] = useState([]);
-  const [id, useId] = useState("");
 
   return (
     <div className="App">
       <Router>
         <Sidebar />
         <Routes>
-          <Route path='/' element={<Home users={users} setUsers={setUsers} useId={useId} />} />
+          <Route path='/' element={<Home users={users} setUsers={setUsers} />} />
           <Route path='/Registration' element={<Registration />} />
-          <Route path='/Details' element={<Details users={users} id={id} />} />
+          <Route path='/Details' element={<Details users={users} />} />
         </Routes>
       </Router>
     </div>

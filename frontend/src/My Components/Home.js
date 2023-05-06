@@ -25,7 +25,7 @@ function Home(props) {
     const currentDate = new Date();
     const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
     const diffDays = Math.round((targetDate.getTime() - currentDate.getTime()) / oneDay);
-    console.log(targetDate,currentDate);
+    console.log(diffDays);
     return diffDays;
   }
 /*
@@ -47,14 +47,17 @@ function Home(props) {
     <div className='Home'>
       {props.users.map((val, key) => {
         const daysLeft = calculateDaysLeft(new Date(val.date));
+        console.log(daysLeft);
         return (
           <Link to='/Details' state={{
             user: {
               title: val.title,
               story: val.story,
               eth: val.eth,
-              date: val.date,
-              image: val.image
+              date: daysLeft,
+              image: val.image,
+              description: val.description,
+              address: val.address
           }}} key={key}>
           <div className='block' key={key}>
             <div className='image'>
@@ -69,7 +72,7 @@ function Home(props) {
                 <li>Eth</li>
               </div>
               <div className='date'>
-                <li>20</li>
+                <li>{ daysLeft}</li>
                 <li>Days Left</li>
               </div>
             </div>
