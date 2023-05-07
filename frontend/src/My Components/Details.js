@@ -9,7 +9,7 @@ import { nanoid } from "nanoid";
 import ModalThankyou from "./Sub-Component/ModalThankyou";
 import { useLocation } from "react-router-dom";
 
-function Details() {
+function Details(props) {
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
   let [contribution, setContribution] = useState(53000);
   let [backers, setBackers] = useState(5007);
@@ -296,6 +296,7 @@ function Details() {
                           rewardData={rewardData}
                           setRewardData={setRewardData}
                           handlePledgeSubmitted={handlePledgeSubmitted}
+                          state={props.state}
                         />
                       );
                     })}

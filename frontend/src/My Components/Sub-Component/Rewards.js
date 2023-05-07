@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ethers } from "ethers";
 
 function Rewards({
   title,
@@ -7,6 +8,7 @@ function Rewards({
   id,
   standsleft,
   handlePledgeSubmitted,
+  state
 }) {
   const [radio, setRadio] = useState(false);
   const [input, setInput] = useState("");
@@ -16,6 +18,15 @@ function Rewards({
       return;
     } else setInput(e.target.value);
   };
+
+  const Transect = async (e) => {
+    e.preventDefault();
+    const { contract } =state;
+    console.log(contract);
+    const amount = { value: ethers.utils.parseEther(input) };
+    console.log(amount);
+    const transaction = contract.transfer("Gahan", "Nice", amount);
+  }
 
   return (
     <>
@@ -52,7 +63,7 @@ function Rewards({
               onChange={handleInput}
               value={input}
             />
-            <button disabled={input === "" ? true : false}>Continue</button>
+            <button disabled={input === "" ? true : false} onClick={Transect}>Continue</button>
           </form>
         </div>
       </div>
