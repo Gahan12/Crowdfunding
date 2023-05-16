@@ -9,27 +9,12 @@ pragma solidity >=0.8.2 <0.9.0;
  */
 contract Transaction {
 
-    struct Memos{
-        string name;
-        string message;
-        uint time;
-        address form;
-    }
-
-    Memos[] memos;
     address payable owner;
 
-    constructor(){
-        owner=payable(msg.sender); 
-    }
-
-    function transfer(string memory name, string memory message) public payable {
+    function transfer(address payable receiver) public payable {
+        owner=receiver;
         require(msg.value>0,"Not accepted");
         owner.transfer(msg.value);
-        memos.push(Memos(name,message,block.timestamp,msg.sender));
     }
 
-    function getMemos() public view returns(Memos[] memory){
-        return memos;
-    }
 }

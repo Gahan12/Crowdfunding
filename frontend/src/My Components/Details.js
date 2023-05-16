@@ -25,6 +25,10 @@ function Details(props) {
 
   const user = location.state?.user;
 
+  useEffect(() => {
+    props.connect(user.address);
+  }, []);
+
   //function to handle pledge submitted and update the rewardsData array
 
   const handlePledgeSubmitted = (ids, input) => {
@@ -41,7 +45,6 @@ function Details(props) {
           pledge: parseInt(item.pledge) + newPledge,
         };
       }
-
       return item;
     });
 
@@ -107,7 +110,7 @@ function Details(props) {
     setBookmark(!bookmark);
   };
   return (
-    <div className="Details">
+    <div id="Details">
       <main
         id="main"
         className={`${openMobileMenu ? "overlay" : ""} `}
@@ -297,6 +300,10 @@ function Details(props) {
                           setRewardData={setRewardData}
                           handlePledgeSubmitted={handlePledgeSubmitted}
                           state={props.state}
+                          address={user.address}
+                          setThanksModal={setThanksModal}
+                          _id={user._id}
+                          eth={user.eth}
                         />
                       );
                     })}

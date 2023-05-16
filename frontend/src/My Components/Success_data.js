@@ -1,10 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import '../App.css';
-import Details from './Details';
 import { Link } from 'react-router-dom';
 
-function Home(props) {
+function Success(props) {
 
   const calculatetimeLeft = (targetDate) => {
     const currentDate = new Date();
@@ -25,7 +23,7 @@ function Home(props) {
         const daysLeft = calculateDaysLeft(new Date(val.date));
         const Timeleft = calculatetimeLeft(new Date(val.date));
         const address = String(val.address);
-        if ((Timeleft > 0) && (val.eth > 0)) {
+        if (val.eth <= 0) {
           return (
             <Link
               to="/Details"
@@ -53,12 +51,11 @@ function Home(props) {
                   {val.title}
                 </h2>
                 <div className="flex justify-between mb-2">
-                  <span className="text-gray-700 font-bold">{val.eth} ETH</span>
-                  <span className="text-gray-700 font-bold">
-                    {daysLeft} Days Left
-                  </span>
+                  <span className="text-gray-700 font-bold">{val.want_eth} ETH earn</span>
                 </div>
-                <p className="text-gray-600 text-sm">{val.description}</p>
+              </div>
+              <div className="absolute top-0 left-0 m-4 bg-green-500 text-white py-1 px-2 rounded-full">
+                Completed
               </div>
             </Link>
           );
@@ -66,7 +63,7 @@ function Home(props) {
       })}
     </div>
   );
-  
+   
 }
 
-export default Home;
+export default Success;

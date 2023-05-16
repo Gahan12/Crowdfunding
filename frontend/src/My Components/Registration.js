@@ -1,64 +1,141 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import '../App.css';
-import Home from './Home';
+import React, { useEffect, useState } from "react";
+import "../App.css";
 
-function Registration() {
+function Registration(props) {
+
+  if (props.username.length == 0) window.location.pathname = '/login';
 
   const [data, setData] = useState({});
 
   const handler = (e) => {
-    if (e.target.name == 'title') e.target.value = e.target.value.toUpperCase();
+    if (e.target.name == "title") e.target.value = e.target.value.toUpperCase();
     setData({
       ...data,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
-    
-    if (Object.keys(data).length == 7) {
-      const response = await fetch('http://localhost:5000/', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/owner", {
+        method: "POST",
         body: JSON.stringify(data),
         headers: {
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       });
       const result = await response.json();
-    }
-    else {
-      window.alert("Gand marao");
-    }
-  }
+  };
 
   return (
-      <div className='Registration'>
-        <form onSubmit={handleSubmit}>
-              <h3 className='title'>Start a Campaign</h3>
-              <div className='data'>
-                <samp>Campaign Title *</samp>
-                <input type='text' name='title' placeholder='Write a titles' onChange={handler}></input>
-                <samp>Description *</samp>
-                <input type='text' name='description' placeholder='Description' onChange={handler}></input>
-                <samp>Story *</samp>
-                <input type='text' name='story' placeholder='Write a story' onChange={handler}></input>
-                <samp>Address *</samp>
-                <input type='text' name='address' placeholder='account number' onChange={handler}></input>
-                <div className='dif'>
-                    <div className='dif1'>
-                        <samp>Goal *</samp>
-                        <input type='number' step='0.00001' name='eth' placeholder='Eth 0.50' onChange={handler}></input>
-                    </div>
-                    <div className='dif1'>
-                        <samp>End Date *</samp>
-                        <input type='date' name='date' onChange={handler}></input>
-                    </div>
-                </div>
-                <samp>Campaign image *</samp>
-                <input type='text' name='image' placeholder='Place image url of your campaign' onChange={handler}></input>
-                <button type='submit'>Submit new campaign</button>
-              </div>
+    <div
+      className="w-full py-6 px-8 mx-auto border border-black bg-gray-100 rounded-lg shadow-lg md:w-2/3 lg:w-1/2 xl:w-1/3"
+      id="Registration"
+    >
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        <h3 className="text-3xl font-bold text-gray-800">Start a Campaign</h3>
+        <div className="mt-6 w-full max-w-lg space-y-6">
+          <div>
+            <label htmlFor="title" className="text-lg font-medium text-gray-700">
+              Campaign Title *
+            </label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Write a title"
+              className="mt-2 block w-full px-4 py-3 rounded-md bg-gray-200 text-gray-700 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={handler}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="description" className="text-lg font-medium text-gray-700">
+              Description *
+            </label>
+            <input
+              type="text"
+              name="description"
+              placeholder="Description"
+              className="mt-2 block w-full px-4 py-3 rounded-md bg-gray-200 text-gray-700 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={handler}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="story" className="text-lg font-medium text-gray-700">
+              Story *
+            </label>
+            <textarea
+              type="text"
+              name="story"
+              placeholder="Write a story"
+              className="mt-2 block w-full px-4 py-3 rounded-md bg-gray-200 text-gray-700 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={handler}
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="address" className="text-lg font-medium text-gray-700">
+              Address *
+            </label>
+            <input
+              type="text"
+              name="address"
+              placeholder="Account number"
+              className="mt-2 block w-full px-4 py-3 rounded-md bg-gray-200 text-gray-700 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={handler}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="Image" className="text-lg font-medium text-gray-700">
+              Image URL *
+            </label>
+            <input
+              type="text"
+              name="image"
+              placeholder="image URL"
+              className="mt-2 block w-full px-4 py-3 rounded-md bg-gray-200 text-gray-700 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={handler}
+              required
+            />
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div>
+              <label htmlFor="eth" className="text-lg font-medium text-gray-700">
+                Goal *
+              </label>
+              <input
+                type="number"
+                step="0.00001"
+                name="eth"
+                placeholder="Eth 0.50"
+                className="mt-2 block w-full px-4 py-3 rounded-md bg-gray-200 text-gray-700 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                onChange={handler}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="date" className="text-lg font-medium text-gray-700">
+                End Date *
+              </label>
+              <input
+                type="date"
+                name="date"
+                className="mt-2 block w-full px-4 py-3 rounded-md bg-gray-200 text-gray-700 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                onChange={handler}
+                required
+              />
+            </div>
+            <div className="text-center">
+              <button
+                type="submit"
+                className="bg-[#27d8c4] text-white rounded border border-purple-500 hover:bg-transparent hover:text-purple-500 transition duration-300 ease-in-out text-base px-6 py-2 mt-4"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   );

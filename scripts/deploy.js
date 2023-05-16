@@ -19,16 +19,6 @@ async function consoleBalance(addresses) {
   }
 }
 
-async function consoleMemos(memos) {
-  for (const memo of memos) {
-    const time = memo.time;
-    const message = memo.message;
-    const name = memo.name;
-    const form = memo.form;
-    console.log(`At ${time}, name ${name}, address ${form}, message: ${message}`);
-  }
-}
-
 async function main() {
   const [owner, from1, from2, from3] = await hre.ethers.getSigners();
   const chai = await hre.ethers.getContractFactory("Transaction");
@@ -43,15 +33,13 @@ async function main() {
   await consoleBalance(address);
 
   const amount = { value: hre.ethers.utils.parseEther("1") };
-  await contract.connect(from1).transfer("from1", "Noice", amount);
-  await contract.connect(from2).transfer("from2", "Nice", amount);
-  await contract.connect(from3).transfer("from3", "Noicee", amount);
+  await contract.connect(from1).transfer(owner.address,amount);
+  await contract.connect(from2).transfer(owner.address,amount);
+  await contract.connect(from3).transfer(owner.address,amount);
 
   console.log("After buying");
   await consoleBalance(address);
 
-  const memos = await contract.getMemos();
-  consoleMemos(memos);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

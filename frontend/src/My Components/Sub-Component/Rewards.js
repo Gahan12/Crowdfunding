@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { ethers } from "ethers";
 
 function Rewards({
@@ -8,10 +8,23 @@ function Rewards({
   id,
   standsleft,
   handlePledgeSubmitted,
-  state
+  state,
+  address,
+  setThanksModal,
+  _id,
+  eth
 }) {
   const [radio, setRadio] = useState(false);
   const [input, setInput] = useState("");
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    setData({
+      '_id': _id,
+      'eth': eth,
+      'input': input
+    });
+  }, [input]);
 
   const handleInput = (e) => {
     if (e.target.value === "") {
@@ -19,13 +32,27 @@ function Rewards({
     } else setInput(e.target.value);
   };
 
+  const update = async () => {
+        const response = await fetch("http://localhost:5000/update", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+  }
+
   const Transect = async (e) => {
     e.preventDefault();
     const { contract } =state;
-    console.log(contract);
     const amount = { value: ethers.utils.parseEther(input) };
-    console.log(amount);
-    const transaction = contract.transfer("Gahan", "Nice", amount);
+    const transaction = await contract.transfer(address, amount);
+    if (transaction) {
+      setThanksModal(true);
+      await update();
+    }
+    else window.alert('Insufficient fund or transaction rejection');
   }
 
   return (
